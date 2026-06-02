@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Authorization Complete</title>
+</head>
+
+<body>
+
+<h2>Authorization Complete</h2>
+
+<p>
+Redirecting you to the study authorization form...
+</p>
+
+<script>
+
+const params = new URLSearchParams(window.location.search);
+
+const code = params.get("code");
+
+const participantId = params.get("state");
+
+if (!code) {
+
+    document.body.innerHTML = `
+        <h2>Error</h2>
+        <p>No authorization code was received.</p>
+    `;
+
+} else {
+
+    const formBase =
+    "https://docs.google.com/forms/d/e/1FAIpQLSfrZLOXCKfydvJymi9nDPGKNnUSU4cG0v8v9DXmg5q-KNPAdQ/viewform?usp=pp_url&entry.316897116=TEST_PID&entry.588287657=TEST_CODE";
+
+    const finalUrl = formBase
+        .replace("TEST_PID", encodeURIComponent(participantId))
+        .replace("TEST_CODE", encodeURIComponent(code));
+
+    window.location.href = finalUrl;
+}
+
+</script>
+
+</body>
+</html>
